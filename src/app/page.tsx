@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@heroui/react";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -10,11 +10,14 @@ export default function Home() {
           Electricians Mate
         </h1>
         <p className="text-lg text-zinc-600 dark:text-zinc-400">
-          Welcome! HeroUI is installed and ready to go.
+          Capture a photo of the installation and let AI fill out your check sheets.
         </p>
-        <Button variant="primary">
-          Get Started
-        </Button>
+        <Link
+          href="/checklists"
+          className="inline-flex h-12 items-center justify-center rounded-xl bg-blue-600 px-8 text-base font-medium text-white hover:bg-blue-700 transition-colors"
+        >
+          Browse Check Sheets
+        </Link>
       </main>
     </div>
   );
