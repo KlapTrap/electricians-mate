@@ -3,19 +3,23 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { Button, Badge } from "@heroui/react";
+import { Button } from "@heroui/react";
 import { getChecklistBySlug } from "@/lib/checklists/data";
 import { ProcessingState, CATEGORY_LABELS } from "@/lib/checklists/types";
-
-const CATEGORY_COLORS: Record<string, "success" | "warning" | "danger" | "accent"> = {
-  certification: "accent",
-  "pre-work": "warning",
-  "post-work": "success",
-  maintenance: "danger",
-};
 import FormRenderer from "@/components/checklists/FormRenderer";
 import PhotoUploader from "@/components/checklists/PhotoUploader";
 import ScanningOverlay from "@/components/checklists/ScanningOverlay";
+
+const CATEGORY_PILLS: Record<string, string> = {
+  certification:
+    "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300",
+  "pre-work":
+    "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300",
+  "post-work":
+    "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300",
+  maintenance:
+    "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300",
+};
 
 export default function ChecklistDetailPage() {
   const params = useParams();
@@ -131,13 +135,11 @@ export default function ChecklistDetailPage() {
             <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
               {checklist.name}
             </h1>
-            <Badge
-              color={CATEGORY_COLORS[checklist.category]}
-              variant="soft"
-              size="sm"
+            <span
+              className={`inline-flex items-center rounded-full px-1.5 h-5 text-[10px] leading-none font-medium ${CATEGORY_PILLS[checklist.category]}`}
             >
               {CATEGORY_LABELS[checklist.category]}
-            </Badge>
+            </span>
           </div>
           <p className="mt-2 text-zinc-600 dark:text-zinc-400">
             {checklist.description}
