@@ -4,8 +4,11 @@ import { useRef, useState, useEffect } from "react";
 
 export default function PhotoUploader({
   onPhotoSelected,
+  onFile,
 }: {
   onPhotoSelected: () => void;
+  /** Optional: called with the File object so the parent can access it */
+  onFile?: (file: File) => void;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -21,6 +24,7 @@ export default function PhotoUploader({
     const url = URL.createObjectURL(file);
     setPreview(url);
     onPhotoSelected();
+    onFile?.(file);
   }
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
