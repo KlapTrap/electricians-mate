@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Card, CardContent, Badge } from "@heroui/react";
+import { Card, CardContent, Chip } from "@heroui/react";
 import { Checklist, CATEGORY_LABELS } from "@/lib/checklists/types";
 
 const CATEGORY_COLORS: Record<string, "success" | "warning" | "danger" | "accent"> = {
@@ -21,14 +21,14 @@ export default function ChecklistCard({ checklist }: { checklist: Checklist }) {
           <h3 className="text-base font-semibold text-zinc-900 dark:text-zinc-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
             {checklist.name}
           </h3>
-          <Badge
+          <Chip
             color={CATEGORY_COLORS[checklist.category]}
             variant="soft"
             size="sm"
             className="self-start"
           >
             {CATEGORY_LABELS[checklist.category]}
-          </Badge>
+          </Chip>
           <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
             {checklist.description}
           </p>
