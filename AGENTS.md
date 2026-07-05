@@ -10,6 +10,10 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 This project maintains a knowledge base at `.opencode/wiki/`. Read `SCHEMA.md` for conventions.
 
+## Before You Start
+
+**Check the wiki first.** If you're about to work on a component, pattern, or area of the project you're unfamiliar with, look in `.opencode/wiki/index.md` to see if there's a relevant Concept or Entity page. The wiki captures past discoveries, pitfalls, and architecture decisions — consulting it prevents you from re-learning the same lessons the hard way.
+
 ## When to Sync the Wiki
 
 After ANY substantial change, update the wiki before finishing your session:
