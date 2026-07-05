@@ -1,86 +1,92 @@
 @import "tailwindcss";
-@variant dark (&:where(.dark, .dark *));
-@import "@heroui/styles";
+@import "@heroui/styles"; 
+/*
+ * HeroUI Theme Customization
+ * Add this to your global.css after importing @heroui/styles
+ * Only includes variables users need to customize
+ * @see https://heroui.com/docs/react/getting-started/theming
+ */
 
-:root {
-  --accent: lab(54.5335% 3.31545 -66.5298);
-  --accent-foreground: lab(98.9676% -.0000298023 -.0000119209);
-  --accent-hover: color-mix(in oklab, lab(54.5335% 3.31545 -66.5298) 90%, lab(98.9676% -.0000298023 -.0000119209) 10%);
-  --accent-soft: color-mix(in oklab, lab(54.5335% 3.31545 -66.5298) 15%, transparent);
-  --accent-soft-foreground: color-mix(in oklab, lab(54.5335% 3.31545 -66.5298) 70%, lab(8.34178% .607349 -2.12998) 30%);
-  --accent-soft-hover: color-mix(in oklab, lab(54.5335% 3.31545 -66.5298) 20%, transparent);
-  --background: lab(96.5432% -.0000596046 0);
-  --foreground: lab(8.34178% .607349 -2.12998);
-  --muted: lab(47.8738% 1.41454 -4.98644);
-  --border: lab(88.3653% .399351 -1.45447);
-  --border-secondary: color-mix(in oklab, lab(100% 0 0) 78%, lab(8.34178% .607349 -2.12998) 22%);
-  --border-tertiary: color-mix(in oklab, lab(100% 0 0) 66%, lab(8.34178% .607349 -2.12998) 34%);
-  --radius: .5rem;
-  --radius-field: calc(.5rem * 1.5);
-  --focus: lab(54.5335% 3.31545 -66.5298);
-  --surface: lab(100% 0 0);
-  --surface-foreground: lab(8.34178% .607349 -2.12998);
-  --surface-secondary: lab(94.4672% .129223 -.473213);
-  --surface-hover: color-mix(in oklab, lab(100% 0 0) 92%, lab(8.34178% .607349 -2.12998) 8%);
-  --default: lab(93.0314% .0993609 -.364041);
-  --default-foreground: lab(8.34178% .607349 -2.12998);
-  --field-background: lab(100% 0 0);
-  --field-foreground: lab(8.34178% .607349 -2.12998);
+:root,
+.light,
+.default,
+[data-theme="light"],
+[data-theme="default"] {
+  /* Theme Colors (Light Mode) */
+  --accent: oklch(86.36% 0.1746 89.69);
+  --accent-foreground: oklch(15% 0.0300 89.69);
+  --background: oklch(97.02% 0.0200 89.69);
+  --border: oklch(90.00% 0.0200 89.69);
+  --danger: oklch(65.32% 0.2421 6.04);
+  --danger-foreground: oklch(99.11% 0 0);
+  --default: oklch(94.00% 0.0200 89.69);
+  --default-foreground: oklch(21.03% 0.0059 89.69);
+  --field-background: oklch(100.00% 0.0100 89.69);
   --field-border: transparent;
-  --field-focus: lab(100% 0 0);
-  --separator: lab(90.6853% .399232 -1.45452);
-  --overlay: lab(100% 0 0);
-  --overlay-foreground: lab(8.34178% .607349 -2.12998);
-  --danger: lab(57.4234% 73.5589 48.0136);
-  --success: lab(71.4376% -59.4106 38.0321);
-  --warning: lab(74.4448% 23.7172 71.6451);
-  --background-secondary: color-mix(in oklab, lab(96.5432% -.0000596046 0) 96%, lab(8.34178% .607349 -2.12998) 4%);
-  --background-tertiary: color-mix(in oklab, lab(96.5432% -.0000596046 0) 92%, lab(8.34178% .607349 -2.12998) 8%);
+  --field-foreground: oklch(21.03% 0.0200 89.69);
+  --field-placeholder: oklch(55.17% 0.0400 89.69);
+  --focus: oklch(86.36% 0.1746 89.69);
+  --foreground: oklch(21.03% 0.0200 89.69);
+  --muted: oklch(55.17% 0.0400 89.69);
+  --overlay: oklch(100.00% 0.0060 89.69);
+  --overlay-foreground: oklch(21.03% 0.0200 89.69);
+  --scrollbar: oklch(87.10% 0.0200 89.69);
+  --segment: oklch(100.00% 0.0200 89.69);
+  --segment-foreground: oklch(21.03% 0.0200 89.69);
+  --separator: oklch(92.00% 0.0200 89.69);
+  --success: oklch(73.29% 0.2012 131.11);
+  --success-foreground: oklch(21.03% 0.0059 131.11);
+  --surface: oklch(100.00% 0.0100 89.69);
+  --surface-foreground: oklch(21.03% 0.0200 89.69);
+  --surface-secondary: oklch(95.24% 0.0160 89.69);
+  --surface-secondary-foreground: oklch(21.03% 0.0200 89.69);
+  --surface-tertiary: oklch(93.73% 0.0160 89.69);
+  --surface-tertiary-foreground: oklch(21.03% 0.0200 89.69);
+  --warning: oklch(78.19% 0.1648 52.63);
+  --warning-foreground: oklch(21.03% 0.0059 52.63);
+
+  /* Border Radius */
+  --radius: 0.25rem;
+  --field-radius: 0.25rem;
+
+  /* Font Family */
+  /* Make sure to load JetBrains Mono font in your app */
+  --font-sans: var(--font-jetbrains-mono);
 }
 
-.dark {
-  --accent: lab(54.5335% 3.31545 -66.5298);
-  --accent-foreground: lab(98.9676% -.0000298023 -.0000119209);
-  --accent-hover: color-mix(in oklab, lab(54.5335% 3.31545 -66.5298) 90%, lab(98.9676% -.0000298023 -.0000119209) 10%);
-  --accent-soft: color-mix(in oklab, lab(54.5335% 3.31545 -66.5298) 12%, transparent);
-  --accent-soft-foreground: color-mix(in oklab, lab(54.5335% 3.31545 -66.5298) 80%, lab(98.9676% -.0000298023 -.0000119209) 30%);
-  --accent-soft-hover: color-mix(in oklab, lab(54.5335% 3.31545 -66.5298) 16%, transparent);
-  --background: lab(1.54547% .178337 -.64671);
-  --foreground: lab(98.9676% -.0000298023 -.0000119209);
-  --muted: lab(65.6464% 1.53497 -5.42429);
-  --border: lab(16.4266% .613093 -2.16998);
-  --border-secondary: color-mix(in oklab, lab(8.34178% .607349 -2.12998) 78%, lab(98.9676% -.0000298023 -.0000119209) 22%);
-  --border-tertiary: color-mix(in oklab, lab(8.34178% .607349 -2.12998) 66%, lab(98.9676% -.0000298023 -.0000119209) 34%);
-  --radius: .5rem;
-  --radius-field: calc(.5rem * 1.5);
-  --focus: lab(54.5335% 3.31545 -66.5298);
-  --surface: lab(8.34178% .607349 -2.12998);
-  --surface-foreground: lab(98.9676% -.0000298023 -.0000119209);
-  --surface-secondary: lab(13.7794% .374213 -1.34113);
-  --surface-hover: color-mix(in oklab, lab(8.34178% .607349 -2.12998) 92%, lab(98.9676% -.0000298023 -.0000119209) 8%);
-  --default: lab(15.7305% .613764 -2.16959);
-  --default-foreground: lab(98.9676% -.0000298023 -.0000119209);
-  --field-background: lab(8.34178% .607349 -2.12998);
-  --field-foreground: lab(98.9676% -.0000298023 -.0000119209);
+.dark,
+[data-theme="dark"] {
+  color-scheme: dark;
+  /* Theme Colors (Dark Mode) */
+  --accent: oklch(86.36% 0.1746 89.69);
+  --accent-foreground: oklch(15% 0.0300 89.69);
+  --background: oklch(12.00% 0.0200 89.69);
+  --border: oklch(28.00% 0.0200 89.69);
+  --danger: oklch(59.40% 0.2046 4.93);
+  --danger-foreground: oklch(99.11% 0 0);
+  --default: oklch(27.40% 0.0200 89.69);
+  --default-foreground: oklch(99.11% 0 0);
+  --field-background: oklch(21.03% 0.0400 89.69);
   --field-border: transparent;
-  --field-focus: lab(8.34178% .607349 -2.12998);
-  --separator: lab(12.9463% .616677 -2.16783);
-  --overlay: lab(8.34178% .607349 -2.12998);
-  --overlay-foreground: lab(98.9676% -.0000298023 -.0000119209);
-  --danger: lab(50.9109% 62.2712 37.59);
-  --success: lab(71.4376% -59.4106 38.0321);
-  --warning: lab(79.1095% 16.747 59.9157);
-  --background-secondary: color-mix(in oklab, lab(1.54547% .178337 -.64671) 96%, lab(98.9676% -.0000298023 -.0000119209) 4%);
-  --background-tertiary: color-mix(in oklab, lab(1.54547% .178337 -.64671) 92%, lab(98.9676% -.0000298023 -.0000119209) 8%);
-}
-
-@theme inline {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  transition: background-color 0.2s ease, color 0.2s ease;
+  --field-foreground: oklch(99.11% 0.0200 89.69);
+  --field-placeholder: oklch(70.50% 0.0400 89.69);
+  --focus: oklch(86.36% 0.1746 89.69);
+  --foreground: oklch(99.11% 0.0200 89.69);
+  --muted: oklch(70.50% 0.0400 89.69);
+  --overlay: oklch(21.03% 0.0400 89.69);
+  --overlay-foreground: oklch(99.11% 0.0200 89.69);
+  --scrollbar: oklch(70.50% 0.0200 89.69);
+  --segment: oklch(39.64% 0.0200 89.69);
+  --segment-foreground: oklch(99.11% 0.0200 89.69);
+  --separator: oklch(25.00% 0.0200 89.69);
+  --success: oklch(73.29% 0.2012 131.11);
+  --success-foreground: oklch(21.03% 0.0059 131.11);
+  --surface: oklch(21.03% 0.0400 89.69);
+  --surface-foreground: oklch(99.11% 0.0200 89.69);
+  --surface-secondary: oklch(25.70% 0.0300 89.69);
+  --surface-secondary-foreground: oklch(99.11% 0.0200 89.69);
+  --surface-tertiary: oklch(27.21% 0.0300 89.69);
+  --surface-tertiary-foreground: oklch(99.11% 0.0200 89.69);
+  --warning: oklch(82.03% 0.1444 56.64);
+  --warning-foreground: oklch(21.03% 0.0059 56.64);
 }
