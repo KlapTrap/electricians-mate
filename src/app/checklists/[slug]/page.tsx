@@ -3,22 +3,18 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { Button } from "@heroui/react";
+import { Button, Chip } from "@heroui/react";
 import { getChecklistBySlug } from "@/lib/checklists/data";
 import { ProcessingState, CATEGORY_LABELS } from "@/lib/checklists/types";
 import FormRenderer from "@/components/checklists/FormRenderer";
 import PhotoUploader from "@/components/checklists/PhotoUploader";
 import ScanningOverlay from "@/components/checklists/ScanningOverlay";
 
-const CATEGORY_PILLS: Record<string, string> = {
-  certification:
-    "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300",
-  "pre-work":
-    "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300",
-  "post-work":
-    "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300",
-  maintenance:
-    "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300",
+const CATEGORY_COLORS: Record<string, "success" | "warning" | "danger" | "accent"> = {
+  certification: "accent",
+  "pre-work": "warning",
+  "post-work": "success",
+  maintenance: "danger",
 };
 
 export default function ChecklistDetailPage() {
@@ -81,17 +77,17 @@ export default function ChecklistDetailPage() {
 
   if (!checklist) {
     return (
-      <div className="flex min-h-full items-center justify-center bg-zinc-50 dark:bg-black">
+      <div className="flex min-h-full items-center justify-center bg-background">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
+          <h1 className="text-2xl font-bold text-foreground">
             Checklist not found
           </h1>
-          <p className="mt-2 text-zinc-600 dark:text-zinc-400">
+          <p className="mt-2 text-muted">
             The checklist &quot;{slug}&quot; does not exist.
           </p>
           <Link
             href="/checklists"
-            className="inline-flex h-10 items-center justify-center rounded-xl bg-blue-600 px-6 text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+            className="inline-flex h-10 items-center justify-center rounded-xl bg-accent px-6 text-sm font-medium text-accent-foreground hover:bg-accent-hover transition-colors"
           >
             Back to Checklists
           </Link>
@@ -111,7 +107,7 @@ export default function ChecklistDetailPage() {
   const totalFields = checklist.sections.flatMap((s) => s.fields).length;
 
   return (
-    <div className="min-h-full bg-zinc-50 dark:bg-black">
+    <div className="min-h-full bg-background">
       {state === "scanning" && (
         <ScanningOverlay
           revealedCount={revealedCount}
@@ -122,7 +118,7 @@ export default function ChecklistDetailPage() {
       <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
         <Link
           href="/checklists"
-          className="mb-6 inline-flex items-center gap-1.5 text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200 transition-colors"
+          className="mb-6 inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-foreground transition-colors"
         >
           <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -132,19 +128,21 @@ export default function ChecklistDetailPage() {
 
         <div className="mb-8">
           <div className="flex flex-wrap items-center gap-3">
-            <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
+            <h1 className="text-2xl font-bold text-foreground">
               {checklist.name}
             </h1>
-            <span
-              className={`inline-flex items-center rounded-full px-1.5 h-5 text-[10px] leading-none font-medium ${CATEGORY_PILLS[checklist.category]}`}
+            <Chip
+              color={CATEGORY_COLORS[checklist.category]}
+              variant="soft"
+              size="sm"
             >
               {CATEGORY_LABELS[checklist.category]}
-            </span>
+            </Chip>
           </div>
-          <p className="mt-2 text-zinc-600 dark:text-zinc-400">
+          <p className="mt-2 text-muted">
             {checklist.description}
           </p>
-          <div className="mt-3 flex flex-wrap gap-4 text-sm text-zinc-500 dark:text-zinc-500">
+          <div className="mt-3 flex flex-wrap gap-4 text-sm text-muted">
             <span>
               <span className="font-medium">Frequency:</span> {checklist.frequency}
             </span>
@@ -172,12 +170,12 @@ export default function ChecklistDetailPage() {
         )}
 
         {state === "complete" && (
-          <div className="mb-6 rounded-xl border border-emerald-200 bg-emerald-50 p-4 dark:border-emerald-800 dark:bg-emerald-950/30">
+          <div className="mb-6 rounded-xl border border-success bg-success/10 p-4">
             <div className="flex items-center gap-2">
-              <svg className="h-5 w-5 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="h-5 w-5 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <span className="text-sm font-medium text-emerald-800 dark:text-emerald-200">
+              <span className="text-sm font-medium text-success">
                 AI analysis complete — {aiFilledIds.size} fields populated below
               </span>
             </div>

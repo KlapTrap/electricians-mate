@@ -50,7 +50,7 @@ export default function PhotoUploader({
 
   if (preview) {
     return (
-      <div className="relative overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-700">
+      <div className="relative overflow-hidden rounded-xl border border-border">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={preview}
@@ -79,8 +79,8 @@ export default function PhotoUploader({
       onDragLeave={handleDragLeave}
       className={`cursor-pointer rounded-xl border-2 border-dashed p-10 text-center transition-colors ${
         dragOver
-          ? "border-blue-400 bg-blue-50 dark:border-blue-500 dark:bg-blue-950/30"
-          : "border-zinc-300 bg-zinc-50 hover:border-zinc-400 dark:border-zinc-700 dark:bg-zinc-900/50 dark:hover:border-zinc-600"
+          ? "border-accent bg-accent/10"
+          : "border-border bg-surface hover:border-accent"
       }`}
     >
       <input
@@ -90,9 +90,9 @@ export default function PhotoUploader({
         onChange={handleChange}
         className="hidden"
       />
-      <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/50">
+      <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-accent/10">
         <svg
-          className="h-7 w-7 text-blue-600 dark:text-blue-400"
+          className="h-7 w-7 text-accent"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -111,10 +111,10 @@ export default function PhotoUploader({
           />
         </svg>
       </div>
-      <p className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+      <p className="text-sm font-medium text-foreground">
         Take a photo of the installation
       </p>
-      <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-500">
+      <p className="mt-1 text-xs text-muted">
         Drag and drop an image here or click to browse
       </p>
     </div>

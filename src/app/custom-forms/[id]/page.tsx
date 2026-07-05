@@ -49,8 +49,8 @@ function FieldValue({
     <div
       className={`rounded-lg border p-3 transition-colors ${
         isAiFilled
-          ? "border-emerald-300 bg-emerald-50 dark:border-emerald-800 dark:bg-emerald-950/40"
-          : "border-zinc-200 dark:border-zinc-800"
+          ? "border-success bg-success/10"
+          : "border-border"
       }`}
     >
       <div className="flex items-start justify-between gap-2">
@@ -216,14 +216,14 @@ export default function CustomFormDetailPage() {
         </div>
 
         {/* Description — the AI prompt */}
-        <Card className="mb-8 border border-blue-200 bg-blue-50/70 dark:border-blue-800 dark:bg-blue-950/30">
-          <CardHeader className="border-b border-blue-200 px-5 py-3 dark:border-blue-800">
-            <h3 className="text-sm font-semibold text-blue-800 dark:text-blue-200">
+        <Card className="mb-8 border border-accent bg-accent/10">
+          <CardHeader className="border-b border-accent px-5 py-3">
+            <h3 className="text-sm font-semibold text-foreground">
               AI Analysis Instructions
             </h3>
           </CardHeader>
           <CardContent className="p-5">
-            <p className="whitespace-pre-wrap text-sm leading-relaxed text-blue-900 dark:text-blue-100">
+            <p className="whitespace-pre-wrap text-sm leading-relaxed text-foreground">
               {form.description}
             </p>
             <p className="mt-2 text-xs text-accent">
@@ -257,10 +257,10 @@ export default function CustomFormDetailPage() {
 
         {/* Results banner */}
         {state === "complete" && (
-          <div className="mb-6 rounded-xl border border-emerald-200 bg-emerald-50 p-4 dark:border-emerald-800 dark:bg-emerald-950/30">
+          <div className="mb-6 rounded-xl border border-success bg-success/10 p-4">
             <div className="flex items-center gap-2">
               <svg
-                className="h-5 w-5 text-emerald-600 dark:text-emerald-400"
+                className="h-5 w-5 text-success"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -272,7 +272,7 @@ export default function CustomFormDetailPage() {
                   d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-              <span className="text-sm font-medium text-emerald-800 dark:text-emerald-200">
+              <span className="text-sm font-medium text-success">
                 AI analysis complete — {aiFilledIds.size} fields populated
               </span>
             </div>
@@ -281,9 +281,9 @@ export default function CustomFormDetailPage() {
 
         {/* Form Fields */}
         {form.fields.length > 0 ? (
-          <Card className="border border-zinc-200 shadow-sm dark:border-zinc-800">
-            <CardHeader className="border-b border-zinc-100 px-5 py-3 dark:border-zinc-800">
-              <h3 className="text-sm font-semibold text-zinc-800 dark:text-zinc-200">
+          <Card className="border border-border shadow-sm">
+            <CardHeader className="border-b border-border px-5 py-3">
+              <h3 className="text-sm font-semibold text-foreground">
                 Form Fields
               </h3>
             </CardHeader>
@@ -299,12 +299,12 @@ export default function CustomFormDetailPage() {
             </CardContent>
           </Card>
         ) : (
-          <div className="rounded-xl border-2 border-dashed border-zinc-300 p-10 text-center dark:border-zinc-700">
-            <p className="text-zinc-500 dark:text-zinc-400">
+          <div className="rounded-xl border-2 border-dashed border-border p-10 text-center">
+            <p className="text-muted">
               This form has no fields defined.{" "}
               <Link
                 href="/custom-forms"
-                className="text-blue-600 hover:underline"
+                className="text-accent hover:underline"
               >
                 Edit it to add some fields.
               </Link>

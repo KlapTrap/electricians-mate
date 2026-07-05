@@ -27,19 +27,19 @@ export default function ScanningOverlay({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-      <div className="flex flex-col items-center gap-6 rounded-2xl bg-white px-12 py-10 shadow-2xl dark:bg-zinc-900">
+      <div className="flex flex-col items-center gap-6 rounded-2xl bg-surface px-12 py-10 shadow-2xl">
         <Spinner size="lg" color="accent" />
         <div className="text-center">
-          <p className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+          <p className="text-lg font-semibold text-foreground">
             {message}
           </p>
-          <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+          <p className="mt-1 text-sm text-muted">
             {revealedCount} of {totalFields} fields populated
           </p>
         </div>
-        <div className="h-2 w-64 overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-700">
+        <div className="h-2 w-64 overflow-hidden rounded-full bg-default">
           <div
-            className="h-full rounded-full bg-blue-600 transition-all duration-500 ease-out"
+            className="h-full rounded-full bg-accent transition-all duration-500 ease-out"
             style={{ width: `${progress}%` }}
           />
         </div>

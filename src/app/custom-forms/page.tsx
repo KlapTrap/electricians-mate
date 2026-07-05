@@ -122,7 +122,7 @@ export default function CustomFormsPage() {
 
         {/* Form Builder */}
         {showBuilder && (
-          <Card className="mb-10 border border-blue-200 bg-blue-50/50 dark:border-blue-800 dark:bg-blue-950/20">
+          <Card className="mb-10 border border-accent bg-accent/10">
             <CardContent className="flex flex-col gap-6 p-6">
               <h2 className="text-lg font-semibold text-foreground">
                 New Custom Form
@@ -137,7 +137,6 @@ export default function CustomFormsPage() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g., Site Photo Audit"
-                  className="bg-white dark:bg-zinc-900"
                 />
               </div>
 
@@ -155,7 +154,7 @@ export default function CustomFormsPage() {
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder={`e.g., "Look at this photo of a consumer unit installation. Check: are all breakers clearly labelled? Is the enclosure undamaged? Are there any signs of overheating? Identify the main switch rating and the number of circuits visible."`}
                   rows={3}
-                  className="w-full bg-white dark:bg-zinc-900"
+                  className="w-full"
                 />
               </div>
 
@@ -168,7 +167,7 @@ export default function CustomFormsPage() {
                   {fields.map((field, i) => (
                     <div
                       key={field.id}
-                      className="flex items-start gap-3 rounded-lg border border-zinc-200 bg-white p-3 dark:border-zinc-700 dark:bg-zinc-900"
+                      className="flex items-start gap-3 rounded-lg border border-border bg-surface p-3"
                     >
                       <div className="flex flex-col min-w-0 flex-1 gap-2">
                           <Input
@@ -184,7 +183,7 @@ export default function CustomFormsPage() {
                             updateField(i, { description: e.target.value || undefined })
                           }
                           placeholder="e.g. Look for a rating printed on the main switch in amps"
-                          className="w-full rounded-lg border border-zinc-200/60 bg-zinc-50 px-3 py-1 text-xs text-muted placeholder:text-muted/60 dark:border-zinc-700/60 dark:bg-zinc-800/50 focus:outline-none focus:ring-1 focus:ring-blue-500/30"
+                          className="w-full rounded-lg border border-border/60 bg-background px-3 py-1 text-xs text-muted placeholder:text-muted/60 dark:border-border/60 dark:bg-default/50 focus:outline-none focus:ring-1 focus:ring-accent/30"
                         />
                         <div className="flex gap-2">
                           <select
@@ -197,7 +196,7 @@ export default function CustomFormsPage() {
                                   type === "select" ? field.options ?? [] : undefined,
                               });
                             }}
-                            className="w-44 rounded-lg border border-zinc-200 bg-white px-3 py-1.5 text-sm text-foreground dark:border-zinc-700 dark:bg-zinc-900"
+                            className="w-44 rounded-lg border border-border bg-surface px-3 py-1.5 text-sm text-foreground"
                             aria-label="Field type"
                           >
                             {(
@@ -230,7 +229,7 @@ export default function CustomFormsPage() {
                       </div>
                       <button
                         onClick={() => removeField(i)}
-                        className="mt-1 shrink-0 rounded-lg p-1.5 text-muted hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-950 dark:hover:text-red-400 transition-colors"
+                        className="mt-1 shrink-0 rounded-lg p-1.5 text-muted hover:bg-danger/10 hover:text-danger transition-colors"
                         title="Remove field"
                       >
                         <svg
@@ -287,7 +286,7 @@ export default function CustomFormsPage() {
 
         {/* Saved Forms */}
         {loaded && forms.length === 0 && !showBuilder && (
-          <div className="rounded-xl border-2 border-dashed border-zinc-300 bg-zinc-50 p-12 text-center dark:border-zinc-700 dark:bg-zinc-900/50">
+          <div className="rounded-xl border-2 border-dashed border-border bg-background p-12 text-center dark:bg-default/50">
             <p className="text-muted">
               No custom forms yet. Click &ldquo;Create New Form&rdquo; to get
               started.
@@ -300,7 +299,7 @@ export default function CustomFormsPage() {
             {forms.map((form) => (
               <Card
                 key={form.id}
-                className="border border-zinc-200 transition-shadow hover:shadow-md dark:border-zinc-800"
+                className="border border-border transition-shadow hover:shadow-md"
               >
                 <CardContent className="flex items-center justify-between gap-4 p-5">
                   <div className="min-w-0 flex-1">
@@ -328,7 +327,7 @@ export default function CustomFormsPage() {
                     </Link>
                     <button
                       onClick={() => handleDelete(form.id)}
-                      className="inline-flex h-9 items-center justify-center rounded-lg px-2 text-sm text-muted hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-950 dark:hover:text-red-400 transition-colors"
+                      className="inline-flex h-9 items-center justify-center rounded-lg px-2 text-sm text-muted hover:bg-danger/10 hover:text-danger transition-colors"
                       title="Delete form"
                     >
                       <svg
