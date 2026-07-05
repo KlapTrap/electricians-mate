@@ -18,14 +18,16 @@ type ProcessingState = "idle" | "uploaded" | "scanning" | "complete";
 async function mockAnalyzePhoto(
   _imageUrl: string,
   _description: string,
-  fieldIds: string[],
+  fields: CustomFormField[],
 ): Promise<Record<string, string>> {
-  // Simulate network delay then return placeholder values
   return new Promise((resolve) => {
     setTimeout(() => {
       const result: Record<string, string> = {};
-      for (const id of fieldIds) {
-        result[id] = "[AI analysis pending — connect LLM API]";
+      for (const field of fields) {
+        const hint = field.description
+          ? `${field.description} — ${field.label}`
+          : field.label;
+        result[field.id] = `[AI analysis for "${hint}" — connect LLM API]`;
       }
       resolve(result);
     }, 1500);
@@ -52,9 +54,16 @@ function FieldValue({
       }`}
     >
       <div className="flex items-start justify-between gap-2">
-        <label className="text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
-          {field.label}
-        </label>
+        <div>
+          <label className="text-xs font-semibold uppercase tracking-wide text-muted">
+            {field.label}
+          </label>
+          {field.description && (
+            <p className="mt-0.5 text-[0.6875rem] leading-relaxed text-muted">
+              {field.description}
+            </p>
+          )}
+        </div>
         {isAiFilled && (
           <Chip color="success" variant="soft" size="sm" className="shrink-0">
             AI-filled
@@ -64,8 +73,8 @@ function FieldValue({
       <div
         className={`mt-1 min-h-[1.25rem] text-sm ${
           isEmpty
-            ? "italic text-zinc-400 dark:text-zinc-600"
-            : "text-zinc-900 dark:text-zinc-100"
+            ? "italic text-muted"
+            : "text-foreground"
         }`}
       >
         {isEmpty ? "Pending" : value}
@@ -115,20 +124,18 @@ export default function CustomFormDetailPage() {
     if (!form || form.fields.length === 0) return;
     setState("scanning");
 
-    const fieldIds = form.fields.map((f) => f.id);
+    const fields = form.fields;
 
-    // Use the mock analysis; swap in a real LLM API call later
     const results = await mockAnalyzePhoto(
       imageUrl ?? "",
       form.description,
-      fieldIds,
+      fields,
     );
 
-    // Stagger reveal for visual effect
     let count = 0;
     const stagger = (i: number) => {
       timerRef.current = setTimeout(() => {
-        const id = fieldIds[i];
+        const id = fields[i].id;
         if (!id) return;
 
         setFilledValues((prev) => ({ ...prev, [id]: results[id] ?? "" }));
@@ -136,7 +143,7 @@ export default function CustomFormDetailPage() {
         count++;
         setRevealedCount(count);
 
-        if (i + 1 < fieldIds.length) {
+        if (i + 1 < fields.length) {
           stagger(i + 1);
         } else {
           setState("complete");
@@ -149,17 +156,17 @@ export default function CustomFormDetailPage() {
 
   if (!form) {
     return (
-      <div className="flex min-h-full items-center justify-center bg-zinc-50 dark:bg-black">
+      <div className="flex min-h-full items-center justify-center bg-background">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
+          <h1 className="text-2xl font-bold text-foreground">
             Form not found
           </h1>
-          <p className="mt-2 text-zinc-600 dark:text-zinc-400">
+          <p className="mt-2 text-muted">
             This custom form does not exist or has been deleted.
           </p>
           <Link
             href="/custom-forms"
-            className="mt-4 inline-flex h-10 items-center justify-center rounded-xl bg-blue-600 px-6 text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+            className="mt-4 inline-flex h-10 items-center justify-center rounded-xl bg-accent px-6 text-sm font-medium text-accent-foreground hover:bg-accent-hover transition-colors"
           >
             Back to Custom Forms
           </Link>
@@ -171,7 +178,7 @@ export default function CustomFormDetailPage() {
   const totalFields = form.fields.length;
 
   return (
-    <div className="min-h-full bg-zinc-50 dark:bg-black">
+    <div className="min-h-full bg-background">
       {state === "scanning" && (
         <ScanningOverlay
           revealedCount={revealedCount}
@@ -179,11 +186,11 @@ export default function CustomFormDetailPage() {
         />
       )}
 
-      <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
         <Link
           href="/custom-forms"
-          className="mb-6 inline-flex items-center gap-1.5 text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200 transition-colors"
+          className="mb-6 inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-foreground transition-colors"
         >
           <svg
             className="h-4 w-4"
@@ -202,8 +209,8 @@ export default function CustomFormDetailPage() {
         </Link>
 
         {/* Form Header */}
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold text-foreground">
             {form.name}
           </h1>
         </div>
@@ -219,7 +226,7 @@ export default function CustomFormDetailPage() {
             <p className="whitespace-pre-wrap text-sm leading-relaxed text-blue-900 dark:text-blue-100">
               {form.description}
             </p>
-            <p className="mt-2 text-xs text-blue-600 dark:text-blue-400">
+            <p className="mt-2 text-xs text-accent">
               The AI will use these instructions to analyze your photo and fill
               out the fields below.
             </p>

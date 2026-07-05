@@ -18,19 +18,17 @@ export default function ChecklistCard({ checklist }: { checklist: Checklist }) {
         className="h-full border border-zinc-200 transition-shadow hover:shadow-md dark:border-zinc-800"
       >
         <CardContent className="flex flex-col gap-3 p-5">
-          <div className="flex items-start justify-between gap-2">
-            <h3 className="text-base font-semibold text-zinc-900 dark:text-zinc-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-              {checklist.name}
-            </h3>
-            <Badge
-              color={CATEGORY_COLORS[checklist.category]}
-              variant="soft"
-              size="sm"
-              className="shrink-0"
-            >
-              {CATEGORY_LABELS[checklist.category]}
-            </Badge>
-          </div>
+          <h3 className="text-base font-semibold text-zinc-900 dark:text-zinc-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+            {checklist.name}
+          </h3>
+          <Badge
+            color={CATEGORY_COLORS[checklist.category]}
+            variant="soft"
+            size="sm"
+            className="self-start"
+          >
+            {CATEGORY_LABELS[checklist.category]}
+          </Badge>
           <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
             {checklist.description}
           </p>

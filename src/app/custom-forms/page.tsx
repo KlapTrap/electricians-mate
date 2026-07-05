@@ -95,16 +95,16 @@ export default function CustomFormsPage() {
   }
 
   return (
-    <div className="min-h-full bg-zinc-50 dark:bg-black">
+    <div className="min-h-full bg-background">
       <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-10">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
+              <h1 className="text-3xl font-bold tracking-tight text-foreground">
                 Custom Forms
               </h1>
-              <p className="mt-2 text-zinc-600 dark:text-zinc-400">
+              <p className="mt-2 text-muted">
                 Create your own forms. Add a description to guide the AI when it
                 analyzes your photo, then define the fields you want filled out.
               </p>
@@ -124,13 +124,13 @@ export default function CustomFormsPage() {
         {showBuilder && (
           <Card className="mb-10 border border-blue-200 bg-blue-50/50 dark:border-blue-800 dark:bg-blue-950/20">
             <CardContent className="flex flex-col gap-6 p-6">
-              <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+              <h2 className="text-lg font-semibold text-foreground">
                 New Custom Form
               </h2>
 
               {/* Form Name */}
               <div>
-                <label className="mb-1.5 block text-sm font-medium text-zinc-700 dark:text-zinc-300">
+                <label className="mb-1.5 block text-sm font-medium text-muted">
                   Form Name
                 </label>
                 <Input
@@ -143,10 +143,10 @@ export default function CustomFormsPage() {
 
               {/* Description (LLM prompt) */}
               <div>
-                <label className="mb-1.5 block text-sm font-medium text-zinc-700 dark:text-zinc-300">
+                <label className="mb-1.5 block text-sm font-medium text-muted">
                   Description &mdash; AI Prompt
                 </label>
-                <p className="mb-2 text-xs text-zinc-500 dark:text-zinc-400">
+                <p className="mb-2 text-xs text-muted">
                   This description will guide the AI when analyzing your photo.
                   Be specific about what to look for.
                 </p>
@@ -155,13 +155,13 @@ export default function CustomFormsPage() {
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder={`e.g., "Look at this photo of a consumer unit installation. Check: are all breakers clearly labelled? Is the enclosure undamaged? Are there any signs of overheating? Identify the main switch rating and the number of circuits visible."`}
                   rows={3}
-                  className="bg-white dark:bg-zinc-900"
+                  className="w-full bg-white dark:bg-zinc-900"
                 />
               </div>
 
               {/* Fields */}
               <div>
-                <label className="mb-3 block text-sm font-medium text-zinc-700 dark:text-zinc-300">
+                <label className="mb-3 block text-sm font-medium text-muted">
                   Form Fields
                 </label>
                 <div className="flex flex-col gap-3">
@@ -170,11 +170,21 @@ export default function CustomFormsPage() {
                       key={field.id}
                       className="flex items-start gap-3 rounded-lg border border-zinc-200 bg-white p-3 dark:border-zinc-700 dark:bg-zinc-900"
                     >
-                      <div className="flex-1 space-y-2">
-                        <Input
-                          value={field.label}
-                          onChange={(e) => updateField(i, { label: e.target.value })}
-                          placeholder="Field label (e.g. 'Consumer unit condition')"
+                      <div className="flex flex-col min-w-0 flex-1 gap-2">
+                          <Input
+                            value={field.label}
+                            onChange={(e) => updateField(i, { label: e.target.value })}
+                            placeholder="Field label (e.g. 'Consumer unit condition')"
+                            className="flex-1"
+                          />
+                        <input
+                          type="text"
+                          value={field.description ?? ""}
+                          onChange={(e) =>
+                            updateField(i, { description: e.target.value || undefined })
+                          }
+                          placeholder="e.g. Look for a rating printed on the main switch in amps"
+                          className="w-full rounded-lg border border-zinc-200/60 bg-zinc-50 px-3 py-1 text-xs text-muted placeholder:text-muted/60 dark:border-zinc-700/60 dark:bg-zinc-800/50 focus:outline-none focus:ring-1 focus:ring-blue-500/30"
                         />
                         <div className="flex gap-2">
                           <select
@@ -187,7 +197,7 @@ export default function CustomFormsPage() {
                                   type === "select" ? field.options ?? [] : undefined,
                               });
                             }}
-                            className="w-44 rounded-lg border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-900 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
+                            className="w-44 rounded-lg border border-zinc-200 bg-white px-3 py-1.5 text-sm text-foreground dark:border-zinc-700 dark:bg-zinc-900"
                             aria-label="Field type"
                           >
                             {(
@@ -220,7 +230,7 @@ export default function CustomFormsPage() {
                       </div>
                       <button
                         onClick={() => removeField(i)}
-                        className="mt-1 shrink-0 rounded-lg p-1.5 text-zinc-400 hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-950 dark:hover:text-red-400 transition-colors"
+                        className="mt-1 shrink-0 rounded-lg p-1.5 text-muted hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-950 dark:hover:text-red-400 transition-colors"
                         title="Remove field"
                       >
                         <svg
@@ -243,7 +253,7 @@ export default function CustomFormsPage() {
 
                 <button
                   onClick={addField}
-                  className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+                  className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-accent-hover transition-colors"
                 >
                   <svg
                     className="h-4 w-4"
@@ -278,7 +288,7 @@ export default function CustomFormsPage() {
         {/* Saved Forms */}
         {loaded && forms.length === 0 && !showBuilder && (
           <div className="rounded-xl border-2 border-dashed border-zinc-300 bg-zinc-50 p-12 text-center dark:border-zinc-700 dark:bg-zinc-900/50">
-            <p className="text-zinc-600 dark:text-zinc-400">
+            <p className="text-muted">
               No custom forms yet. Click &ldquo;Create New Form&rdquo; to get
               started.
             </p>
@@ -296,14 +306,14 @@ export default function CustomFormsPage() {
                   <div className="min-w-0 flex-1">
                     <Link
                       href={`/custom-forms/${form.id}`}
-                      className="text-base font-semibold text-zinc-900 hover:text-blue-600 dark:text-zinc-100 dark:hover:text-blue-400 transition-colors"
+                      className="text-base font-semibold text-foreground hover:text-accent transition-colors"
                     >
                       {form.name}
                     </Link>
-                    <p className="mt-1 line-clamp-2 text-sm text-zinc-600 dark:text-zinc-400">
+                    <p className="mt-1 line-clamp-2 text-sm text-muted">
                       {form.description}
                     </p>
-                    <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-500">
+                    <p className="mt-2 text-xs text-muted">
                       {form.fields.length} field
                       {form.fields.length !== 1 ? "s" : ""} &middot; Created{" "}
                       {new Date(form.createdAt).toLocaleDateString()}
@@ -312,13 +322,13 @@ export default function CustomFormsPage() {
                   <div className="flex shrink-0 items-center gap-2">
                     <Link
                       href={`/custom-forms/${form.id}`}
-                      className="inline-flex h-9 items-center justify-center rounded-lg bg-blue-600 px-4 text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                      className="inline-flex h-9 items-center justify-center rounded-lg bg-accent px-4 text-sm font-medium text-accent-foreground hover:bg-accent-hover transition-colors"
                     >
                       Open
                     </Link>
                     <button
                       onClick={() => handleDelete(form.id)}
-                      className="inline-flex h-9 items-center justify-center rounded-lg px-2 text-sm text-zinc-400 hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-950 dark:hover:text-red-400 transition-colors"
+                      className="inline-flex h-9 items-center justify-center rounded-lg px-2 text-sm text-muted hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-950 dark:hover:text-red-400 transition-colors"
                       title="Delete form"
                     >
                       <svg

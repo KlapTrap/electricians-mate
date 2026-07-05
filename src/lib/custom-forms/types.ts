@@ -5,6 +5,8 @@ export interface CustomFormField {
   label: string;
   type: CustomFieldType;
   options?: string[]; // for "select" type: comma-separated options
+  /** LLM context for the field — guides the AI when extracting this field's value */
+  description?: string;
 }
 
 export interface CustomForm {
