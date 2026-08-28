@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import "tailwindcss" source("../");
 @import "@heroui/styles"; 
 /*
  * HeroUI Theme Customization
