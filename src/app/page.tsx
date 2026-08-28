@@ -13,16 +13,16 @@ export default function Home() {
           <p className="text-lg text-muted">
             Capture a photo of the installation and let AI fill out your check sheets.
           </p>
-          <div className="flex gap-4">
+          <div className="flex flex-col items-center gap-4 sm:flex-row">
             <Link
               href="/checklists"
-              className="inline-flex h-12 items-center justify-center rounded-xl bg-accent px-8 text-base font-medium text-accent-foreground hover:bg-accent-hover transition-colors"
+              className="inline-flex h-12 w-full items-center justify-center rounded-xl bg-accent px-8 text-base font-medium text-accent-foreground hover:bg-accent-hover transition-colors sm:w-auto"
             >
               Browse Check Sheets
             </Link>
             <Link
               href="/custom-forms"
-              className="inline-flex h-12 items-center justify-center rounded-xl border border-accent bg-transparent px-8 text-base font-medium text-accent hover:bg-accent-soft transition-colors"
+              className="inline-flex h-12 w-full items-center justify-center rounded-xl border border-accent bg-transparent px-8 text-base font-medium text-accent hover:bg-accent-soft transition-colors sm:w-auto"
             >
               Custom Forms
             </Link>
